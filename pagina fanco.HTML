@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pasapalabra de Franco</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Jugá al Pasapalabra de FrancoGamer2025 y dejale tu mensaje. ¡Demostrá cuánto lo conocés!">
+  <meta name="keywords" content="francogamer2025, pasapalabra, juego, fans, rap, franco, contacto, web">
+  <meta name="author" content="FrancoGamer2025">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      color: #00eaff;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .pasapalabra {
+      max-width: 700px;
+      margin: auto;
+      background: #1b1b1b;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 0 10px #00eaff55;
+    }
+
+    .pregunta {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 0.5rem;
+    }
+
+    input {
+      padding: 0.6rem;
+      width: 100%;
+      max-width: 400px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 0.3rem;
+      background: #333;
+      color: white;
+    }
+
+    button {
+      background: #00eaff;
+      color: #000;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #00c5d4;
+    }
+
+    .resultado {
+      margin-top: 2rem;
+      background: #222;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .formulario {
+      margin-top: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #1b1b1b;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #ff00cc55;
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      background: #333;
+      color: white;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+    }
+
+    .mensaje {
+      margin-top: 1rem;
+      background: #2c2c2c;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .mensaje strong {
+      color: #0ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎤 Pasapalabra de FrancoGamer2025</h1>
+
+  <div class="pasapalabra">
+    <form id="juegoForm">
+      <div class="pregunta">
+        <strong>A:</strong> lo que alcanza cuando sueña sin límites  
+        <label><input type="text" name="A" placeholder="Respuesta..."></label>
+      </div>
+      <div class="pregunta">
+        <strong>B:</strong> palabra que lo define cuando ayuda a un amigo  
+        <label><input type="text" name="B" placeholder="Respuesta..."></label>
+      </div>
+      <div class="pregunta">
+        <strong>C:</strong> lo que le dicen cuando la rompe en una pista  
+        <label><input type="text" name="C" placeholder="Respuesta..."></label>
+      </div>
+      <div class="pregunta">
+        <strong>D:</strong> lo que le sobra cuando improvisa sin miedo  
+        <label><input type="text" name="D" placeholder="Respuesta..."></label>
+      </div>
+      <div class="pregunta">
+        <strong>E:</strong> estado emocional que transmite con cada verso real  
+        <label><input type="text" name="E" placeholder="Respuesta..."></label>
+      </div>
+      <div class="pregunta">
+        <strong>F:</strong> lo que vibra en su pecho cuando canta  
+        <label><input type="text" name="F" placeholder="Respuesta..."></label>
+      </div>
+      <div class="pregunta">
+        <strong>G:</strong> lo que gritan cuando entra en escena ________ Franco  
+        <label><input type="text" name="G" placeholder="Respuesta..."></label>
+      </div>
+      <button type="submit">📩 Enviar respuestas</button>
+    </form>
+
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <div class="formulario">
+    <h2>💬 Dejá tu mensaje para Franco</h2>
+    <input type="text" id="nombreFan" placeholder="Tu nombre o alias">
+    <textarea id="mensajeFan" placeholder="Escribí tu mensaje acá..."></textarea>
+    <button onclick="guardarMensaje()">Enviar mensaje</button>
+
+    <div id="mensajesFans"></div>
+  </div>
+
+  <script>
+    const respuestasCorrectas = {
+      A: "altura",
+      B: "buena onda",
+      C: "crack",
+      D: "descaro",
+      E: "empatia",
+      F: "fuerza",
+      G: "yeah"
+    };
+
+    document.getElementById("juegoForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = new FormData(e.target);
+      let correctas = 0;
+      let total = 0;
+      let resumen = "";
+
+      for (let letra in respuestasCorrectas) {
+        total++;
+        const userAnswer = (form.get(letra) || "").trim().toLowerCase();
+        const correcta = respuestasCorrectas[letra].toLowerCase();
+        if (userAnswer === correcta) {
+          correctas++;
+          resumen += `<p><strong>${letra}:</strong> ✅ Correcto</p>`;
+        } else {
+          resumen += `<p><strong>${letra}:</strong> ❌ Incorrecto (Era: <em>${correcta}</em>)</p>`;
+        }
+      }
+
+      document.getElementById("resultado").innerHTML =
+        `<h3>Resultado final: ${correctas}/${total} correctas</h3>` + resumen;
+    });
+
+    function guardarMensaje() {
+      const nombre = document.getElementById("nombreFan").value.trim();
+      const mensaje = document.getElementById("mensajeFan").value.trim();
+      if (!nombre || !mensaje) return alert("Completá tu nombre y mensaje.");
+
+      const nuevo = { nombre, mensaje };
+      let mensajes = JSON.parse(localStorage.getItem("mensajesFranco") || "[]");
+      mensajes.unshift(nuevo);
+      localStorage.setItem("mensajesFranco", JSON.stringify(mensajes));
+      document.getElementById("nombreFan").value = "";
+      document.getElementById("mensajeFan").value = "";
+      mostrarMensajes();
+    }
+
+    function mostrarMensajes() {
+      const mensajes = JSON.parse(localStorage.getItem("mensajesFranco") || "[]");
+      const contenedor = document.getElementById("mensajesFans");
+      contenedor.innerHTML = "<h3>📢 Mensajes de fans:</h3>";
+      mensajes.forEach(m => {
+        const div = document.createElement("div");
+        div.className = "mensaje";
+        div.innerHTML = `<strong>${m.nombre}</strong><br>${m.mensaje}`;
+        contenedor.appendChild(div);
+      });
+    }
+
+    mostrarMensajes();
+  </script>
+</body>
+</html>
